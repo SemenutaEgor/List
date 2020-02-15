@@ -100,9 +100,12 @@ public:
 	}
 	//Перейти на следующий элемент
 	void GoNext() {
-		pPrev = pCurr;
-		pCurr = pCurr->pNext;
-		pos++;
+		if (IsEnd()) throw - 1;
+		else {
+			pPrev = pCurr;
+			pCurr = pCurr->pNext;
+			pos++;
+		}
 	}
 	//Проверка, мы дошли до конца или не дошли
 	bool IsEnd() {
