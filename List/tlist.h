@@ -128,6 +128,7 @@ public:
 	}
 	//Удаление всего списка
 	void DelList() {
+		Reset();
 		while (!IsEnd()) {
 			DelCurr();
 		}
