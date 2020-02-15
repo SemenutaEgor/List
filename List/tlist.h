@@ -6,6 +6,7 @@ struct TNode {
 };
 template <class T>
 class TList {
+protected:
 	TNode <T> *pFirst, *pLast, *pCurr, *pPrev, *pStop;
 	int len; //длина
 	int pos;//куда показывает pCurr

@@ -13,7 +13,7 @@ public:
 		pFirst = pHead;
 	}
 	//Деструктор
-	THeadList() {
+	~THeadList() {
 		TList<T> ::DelList();
 		delete pHead;
 	}
