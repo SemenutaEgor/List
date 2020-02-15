@@ -122,4 +122,10 @@ public:
 					}
 				}
 	}
+	//Удаление всего списка
+	void DelList() {
+		while (!IsEnd()) {
+			DelCurr();
+		}
+	}
 };
