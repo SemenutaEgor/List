@@ -23,9 +23,9 @@ public:
 	//Деструктор
 	~TList() {
 		TNode<T> *tmp = pFirst;
-		if (tmp == NULL)
+		if (tmp == pStop)
 			delete tmp;
-		while (pFirst != NULL) {
+		while (pFirst != pStop) {
 			pFirst = pFirst->pNext;
 			delete tmp;
 			tmp = pFirst;
