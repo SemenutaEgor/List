@@ -1,6 +1,8 @@
 #pragma once
+#include <iostream>
 #include "tlist.h"
 #include "theadlist.h"
+
 struct TMonom {
 	double coeff;
 	int px, py, pz;
@@ -48,7 +50,7 @@ struct TMonom {
 class TPolinom : public THeadList<TMonom> {
 public:
 	//Конструктор
-	TPolinom() : THeadList<TMonom>(){
+	TPolinom() : THeadList<TMonom>() {
 		pHead->val.pz = -1;
 	}
 	//Конструктор для отладки (преобразует двумерный массив в полином)
@@ -66,7 +68,7 @@ public:
 	//Конструктор копирования
 	TPolinom(TPolinom &p) : THeadList<TMonom>() {
 		pHead->val.pz = -1;
-		for (p.Reset(); !p.IsEnd; p.GoNext) {
+		for (p.Reset(); !p.IsEnd(); p.GoNext()) {
 			TMonom mon = p.pCurr->val;
 			InsLast(mon);
 		}
@@ -74,6 +76,10 @@ public:
 	//Оператор присваивания
 	void operator= (TPolinom &p) {
 		///
+	}
+	//Получить моном
+	TMonom GetMonom() {
+		return pCurr->val;
 	}
 	//Добавить моном
 	void InsMonom(TMonom mon) {
@@ -96,7 +102,7 @@ public:
 	//Домножить на моном
 	void operator*= (TMonom mon) {
 		for (Reset(); !IsEnd(); GoNext()) {
-			pCurr->val.coeff *=mon.coeff;
+			pCurr->val.coeff *= mon.coeff;
 			pCurr->val.px += mon.px;
 			pCurr->val.py += mon.py;
 			pCurr->val.pz += mon.pz;
@@ -108,5 +114,11 @@ public:
 		TPolinom res = *this;
 		res *= mon;
 		return res;
+	}
+	//Вывод полинома
+	friend std::ostream& operator<<( std::ostream &os, TPolinom &p) {
+		for (p.Reset(); !p.IsEnd(); p.GoNext())
+			std::cout << p.GetMonom() << std::endl;
+		return os;
 	}
 };
