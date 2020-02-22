@@ -78,21 +78,22 @@ public:
 		///
 	}
 	//Получить моном
-	TMonom GetMonom() {
+	TMonom& GetMonom() {
 		return pCurr->val;
 	}
 	//Добавить моном
 	void InsMonom(TMonom mon) {
 		for (Reset(); !IsEnd(); GoNext()) {
-			if (mon == pCurr->val) {
-				double tmp = mon.coeff + pCurr->val.coeff;
-				if (tmp != 0)
-					pCurr->val.coeff = tmp;
+			if (mon == GetMonom()){
+				double tmp = mon.coeff + GetMonom().coeff;
+				if (tmp)
+					GetMonom().coeff = tmp;
+					//pCurr->val.coeff = tmp;
 				else
 					DelCurr();
 				return;
 			}
-			if (mon > pCurr->val) {
+			if (mon > GetMonom()) {
 				InsCurr(mon);
 				return;
 			}
@@ -117,8 +118,9 @@ public:
 	}
 	//Вывод полинома
 	friend std::ostream& operator<<( std::ostream &os, TPolinom &p) {
-		for (p.Reset(); !p.IsEnd(); p.GoNext())
-			std::cout << p.GetMonom() << std::endl;
+		for (p.Reset(); !p.IsEnd(); p.GoNext()) {
+			std::cout << p.GetMonom().coeff << "x^" << p.GetMonom().px << "y^" << p.GetMonom().py << "z^" << p.GetMonom().pz << " + "<<  std::endl;
+		}
 		return os;
 	}
 };
