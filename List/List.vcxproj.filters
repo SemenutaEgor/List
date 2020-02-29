@@ -18,6 +18,12 @@
     <ClInclude Include="tlist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="theadlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tpolinom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
