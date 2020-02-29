@@ -17,19 +17,40 @@ void main() {
 		l.InsFirst(5);
 		l.Reset();
 		cout << l.GetCurrEl() << endl;*/
-	const int sizem = 3; // Размер массива коэффициентов
-	int arr[sizem][2];
-	for (int i = 0; i < sizem; i++) {
-		cout << "Введите " << i << " коэффициент" << endl;
-		cin >> arr[i][0];
-		cout << "Введите степени" << endl;
-		cin >> arr[i][1];
-	}
-	/*arr[0][0] = 5;
-	arr[0][1] = 222;
-	arr[1][0] = 3;
-	arr[1][1] = 111;*/
-	TPolinom pol(arr, sizem);
-	cout << pol;
+		int sizem; // Размер массива коэффициентов
+		int column = 2;
+		int** arr;
+		cout << "Введите размер многочлена" << endl;
+		cin >> sizem;
+		arr = new int*[sizem];
+		for (int i = 0; i < sizem; i++)
+			arr[i] = new int[column];
 
+		for (int i = 0; i < sizem; i++) {
+			cout << "Введите " << i << " коэффициент" << endl;
+			cin >> arr[i][0];
+			cout << "Введите степени" << endl;
+			cin >> arr[i][1];
+		}
+		TPolinom pol(arr, sizem);
+		cout << pol;
+		int sizem1; // Размер массива коэффициентов
+		int column1 = 2;
+		int** arr1;
+		cout << "Введите размер многочлена" << endl;
+		cin >> sizem1;
+		arr1 = new int*[sizem1];
+		for (int i = 0; i < sizem1; i++)
+			arr1[i] = new int[column1];
+
+		for (int i = 0; i < sizem1; i++) {
+			cout << "Введите " << i << " коэффициент" << endl;
+			cin >> arr1[i][0];
+			cout << "Введите степени" << endl;
+			cin >> arr1[i][1];
+		}
+		TPolinom pol1(arr1, sizem1);
+		cout << pol1;
+		pol += pol1;
+		cout << pol;
 }

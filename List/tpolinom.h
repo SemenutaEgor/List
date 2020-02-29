@@ -54,7 +54,7 @@ public:
 		pHead->val.pz = -1;
 	}
 	//Конструктор для отладки (преобразует двумерный массив в полином)
-	TPolinom(int arr[][2], int sizep) : THeadList<TMonom>() {          //sizep - размер массива с полиномом
+	TPolinom(int** arr, int sizep) : THeadList<TMonom>() {          //sizep - размер массива с полиномом
 		pHead->val.pz = -1;
 		for (int i = 0; i < sizep; i++) {
 			TMonom mon;
@@ -115,6 +115,35 @@ public:
 		TPolinom res = *this;
 		res *= mon;
 		return res;
+	}
+	//Сложение полиномов +=
+	void operator+=(TPolinom& q) {
+		TMonom pm, qm, rm;
+		Reset();
+		q.Reset();
+		while (!q.IsEnd()) {
+			pm = pCurr->val;
+			qm = q.pCurr->val;
+			if (pm > qm)
+				GoNext();
+			if (pm < qm) {
+				InsCurr(qm);
+				q.GoNext();
+			}
+			if (pm == qm) {
+				rm = pm;
+				rm.coeff += qm.coeff;
+				if (rm.coeff == 0) {
+					DelCurr();
+					q.GoNext();
+				}
+				else {
+					pCurr->val = rm;
+					q.GoNext();
+					GoNext();
+				}
+			}
+		}
 	}
 	//Вывод полинома
 	friend std::ostream& operator<<( std::ostream &os, TPolinom &p) {
