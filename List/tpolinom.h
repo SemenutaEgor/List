@@ -87,8 +87,8 @@ public:
 			if (mon == GetMonom()){
 				double tmp = mon.coeff + GetMonom().coeff;
 				if (tmp)
-					GetMonom().coeff = tmp;
-					//pCurr->val.coeff = tmp;
+					//GetMonom().coeff = tmp;
+					pCurr->val.coeff = tmp;
 				else
 					DelCurr();
 				return;
@@ -119,7 +119,7 @@ public:
 	//Вывод полинома
 	friend std::ostream& operator<<( std::ostream &os, TPolinom &p) {
 		for (p.Reset(); !p.IsEnd(); p.GoNext()) {
-			std::cout << p.GetMonom().coeff << "x^" << p.GetMonom().px << "y^" << p.GetMonom().py << "z^" << p.GetMonom().pz << " + "<<  std::endl;
+			std::cout << p.pCurr->val.coeff << "x^" << p.pCurr->val.px << "y^" << p.pCurr->val.py << "z^" << p.pCurr->val.pz << " + ";//<<  std::endl;
 		}
 		return os;
 	}

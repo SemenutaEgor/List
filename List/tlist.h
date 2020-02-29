@@ -24,8 +24,8 @@ public:
 	//Деструктор
 	~TList() {
 		TNode<T> *tmp = pFirst;
-		if (tmp == pStop)
-			delete tmp;
+		//if (tmp == pStop)
+			//delete tmp;
 		while (pFirst != pStop) {
 			pFirst = pFirst->pNext;
 			delete tmp;
@@ -43,14 +43,18 @@ public:
 	}
 	//Добавить в конец
 	void InsLast(const T& a) {
-		TNode<T> *p = pFirst;
-		while (p->pNext != pStop)
-			p = p->pNext;
-		TNode *tmp;
-		tmp = new TNode<T>;
-		tmp->val = a;
-		tmp->pNext = pStop;
-		p->pNext = tmp;
+		if (pFirst == pStop)
+			InsFirst(a);
+		else {
+			TNode<T> *p = pFirst;
+			while (p->pNext != pStop)
+				p = p->pNext;
+			TNode<T> *tmp;
+			tmp = new TNode<T>;
+			tmp->val = a;
+			tmp->pNext = pStop;
+			p->pNext = tmp;
+		}
 	}
 	//Удалить первое звено
 	T DelFirst() {
@@ -138,5 +142,6 @@ public:
 		for (Reset(); !IsEnd(); GoNext()) {
 			DelCurr();
 		}
+		DelCurr();
 	}
 };
