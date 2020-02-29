@@ -122,6 +122,10 @@ public:
 	bool IsEnd() {
 		return (pCurr == pStop);
 	}
+    //Проверка, что мы дошли до предпоследнего
+	bool IsNextEnd() {
+		return (pCurr->pNext == pStop);
+	}
 	//Добавить по порядку
 	void InsOnOrder(const T& el) {
 		if ((pFirst == pStop) || (el > pFirst->val))

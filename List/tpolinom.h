@@ -118,10 +118,11 @@ public:
 	}
 	//Вывод полинома
 	friend std::ostream& operator<<( std::ostream &os, TPolinom &p) {
-		for (p.Reset(); !p.IsEnd(); p.GoNext()) {
+		for (p.Reset(); !p.IsNextEnd(); p.GoNext()) {
 			std::cout << p.pCurr->val.coeff << "*x^" << p.pCurr->val.px << "y^" << p.pCurr->val.py << "z^" << p.pCurr->val.pz << " + ";//<<  std::endl;
 		}
-	std::cout << "0";
+		//p.GoNext();
+		std::cout << p.pCurr->val.coeff << "*x^" << p.pCurr->val.px << "y^" << p.pCurr->val.py << "z^" << p.pCurr->val.pz << std::endl;
 		return os;
 	}
 };
