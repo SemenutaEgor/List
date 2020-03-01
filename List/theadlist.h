@@ -22,6 +22,10 @@ public:
 		TList::InsFirst(el);
 		pHead->pNext = pFirst;
 	}
+	//Добавить последнее звено
+	void InsLast(T el) {
+		TList::InsLast(el);
+	}
 	//Удаление первого элемента
 	void DelFirst() {
 		TList::DelFirst();

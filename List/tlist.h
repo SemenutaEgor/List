@@ -3,6 +3,9 @@ template <class T>
 struct TNode {
 	T val;
 	TNode<T> *pNext;
+	/*void SetNext(TNode<T>* el) {
+		pNext = el;
+	}*/
 };
 template <class T>
 class TList {
@@ -54,17 +57,21 @@ public:
 			tmp->val = a;
 			tmp->pNext = pStop;
 			p->pNext = tmp;
+			pLast = tmp;
 		}
 	}
+	//Получить указатель на следующий
+	TNode<T>* GetNext() {
+		return pCurr->pNext;
+	}
 	//Удалить первое звено
-	T DelFirst() {
+	void DelFirst() {
 		T res = pFirst->val;
 		TNode<T> *tmp;
 		tmp = pFirst;
 		pFirst = pFirst->pNext;
 		delete tmp;
 		len--;
-		return res;
 	}
 	//Добавить элемент на текущую позицию
 	void InsCurr(const T& a) {
@@ -73,28 +80,30 @@ public:
 			pCurr = pFirst;
 		}
 		else {
-			if (pCurr == pStop)
-				throw - 1;
-			else {
+			//if (pCurr == pStop)
+				//throw - 1;
+			//else {
 				TNode<T> *tmp = new TNode<T>;
 				tmp->val = a;
 				pPrev->pNext = tmp;
 				tmp->pNext = pCurr;
 				pCurr = tmp;
 				len++; // потому что добавили 1 звено
-			}
+			//}
 		}
 	}
 	//Удалить текущий элемент
 	void DelCurr() {
-		if (pCurr == pStop)
-			throw - 1;
+		//if (pCurr == pStop)
+			//throw - 1;
 		if (pCurr == pFirst)
 			DelFirst();
 		else {
 			TNode<T> *tmp = pCurr;
 			pPrev->pNext = pCurr->pNext;
 			pCurr = pCurr->pNext;
+			/*pCurr = GetNext();
+			pPrev->SetNext(pCurr);*/
 			delete tmp;
 			len--;//уменьшаем длину, т.к. один элемент удалили
 		}
@@ -111,12 +120,12 @@ public:
 	}
 	//Перейти на следующий элемент
 	void GoNext() {
-		if (IsEnd()) throw - 1;
-		else {
+		//if (IsEnd()) throw - 1;
+		//else {
 			pPrev = pCurr;
 			pCurr = pCurr->pNext;
 			pos++;
-		}
+		//}
 	}
 	//Проверка, мы дошли до конца или не дошли
 	bool IsEnd() {

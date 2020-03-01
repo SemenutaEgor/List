@@ -22,7 +22,7 @@ struct TMonom {
 				if (pz < mon.pz)
 					return true;
 				else
-					false;
+					return false;
 	}
 	bool operator> (TMonom& mon) {
 		if (px > mon.px)
@@ -34,7 +34,7 @@ struct TMonom {
 				if (pz > mon.pz)
 					return true;
 				else
-					false;
+					return false;
 	}
 	bool operator== (TMonom& mon) {
 		if ((px == mon.px) && (py == mon.py) && (pz == mon.pz))
@@ -126,21 +126,25 @@ public:
 			qm = q.pCurr->val;
 			if (pm > qm)
 				GoNext();
-			if (pm < qm) {
-				InsCurr(qm);
-				q.GoNext();
-			}
-			if (pm == qm) {
-				rm = pm;
-				rm.coeff += qm.coeff;
-				if (rm.coeff == 0) {
-					DelCurr();
+			else {
+				if (pm < qm) {
+					InsCurr(qm);
 					q.GoNext();
 				}
 				else {
-					pCurr->val = rm;
-					q.GoNext();
-					GoNext();
+					if (pm == qm) {
+						rm = pm;
+						rm.coeff += qm.coeff;
+						if (rm.coeff == 0) {
+							DelCurr();
+							q.GoNext();
+						}
+						else {
+							pCurr->val = rm;
+							q.GoNext();
+							GoNext();
+						}
+					}
 				}
 			}
 		}
