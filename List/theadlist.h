@@ -26,6 +26,10 @@ public:
 	void InsLast(T el) {
 		TList::InsLast(el);
 	}
+	//Добавить звено на текущую позицию
+	void InsCurr(T el) {
+		TList::InsCurr(el);
+	}
 	//Удаление первого элемента
 	void DelFirst() {
 		TList::DelFirst();

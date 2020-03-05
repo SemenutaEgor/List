@@ -39,6 +39,8 @@ struct TMonom {
 	bool operator== (TMonom& mon) {
 		if ((px == mon.px) && (py == mon.py) && (pz == mon.pz))
 			return true;
+		else
+			return false;
 	}
 	bool operator!= (TMonom& mon) {
 		if (*this == mon)
@@ -62,7 +64,7 @@ public:
 			mon.px = arr[i][1] / 100;
 			mon.py = arr[i][1] / 10 % 10;
 			mon.pz = arr[i][1] % 10;
-			InsLast(mon);
+			InsMonom(mon);
 		}
 	}
 	//Конструктор копирования
@@ -70,7 +72,7 @@ public:
 		pHead->val.pz = -1;
 		for (p.Reset(); !p.IsEnd(); p.GoNext()) {
 			TMonom mon = p.pCurr->val;
-			InsLast(mon);
+			InsMonom(mon);
 		}
 	}
 	//Оператор присваивания
@@ -84,7 +86,7 @@ public:
 	//Добавить моном
 	void InsMonom(TMonom mon) {
 		for (Reset(); !IsEnd(); GoNext()) {
-			if (mon == GetMonom()){
+			if (mon == pCurr->val){
 				double tmp = mon.coeff + GetMonom().coeff;
 				if (tmp)
 					//GetMonom().coeff = tmp;
@@ -97,8 +99,9 @@ public:
 				InsCurr(mon);
 				return;
 			}
-			InsLast(mon);
+			//InsLast(mon);
 		}
+		InsLast(mon);
 	}
 	//Домножить на моном
 	void operator*= (TMonom mon) {
@@ -148,6 +151,12 @@ public:
 				}
 			}
 		}
+	}
+	//Сложение полиномов +
+	TPolinom operator+ (TPolinom& pol) {
+		TPolinom res = *this;
+		res += pol;
+		return res;
 	}
 	//Вывод полинома
 	friend std::ostream& operator<<( std::ostream &os, TPolinom &p) {
