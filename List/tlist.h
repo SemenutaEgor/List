@@ -11,10 +11,10 @@ template <class T>
 class TList {
 protected:
 	TNode <T> *pFirst, *pLast, *pCurr, *pPrev, *pStop;
-	int len; //длина
-	int pos;//куда показывает pCurr
+	int len; //lenght
+	int pos;//where pCurr shows
 public:
-	//конструктор
+	//constructor
 	TList() {
 		pFirst = NULL;
 		pLast = NULL;
@@ -24,7 +24,7 @@ public:
 		len = 0;
 		pos = 0;
 	}
-	//Деструктор
+	//destructor
 	~TList() {
 		TNode<T> *tmp = pFirst;
 		//if (tmp == pStop)
@@ -35,7 +35,7 @@ public:
 			tmp = pFirst;
 		}
 	}
-	//Добавить в начало
+	//insert at the beginning
 	void InsFirst(const T& a) {
 		TNode<T> *tmp;
 		tmp = new TNode<T>;
@@ -44,7 +44,7 @@ public:
 		pFirst = tmp;
 		len++;
 	}
-	//Добавить в конец
+	//insert at end
 	void InsLast(const T& a) {
 		if (pFirst == pStop)
 			InsFirst(a);
@@ -60,12 +60,16 @@ public:
 			pLast = tmp;
 		}
 	}
-	//Получить указатель на следующий
+	//get a pointer pNext
 	TNode<T>* GetNext() {
 		return pCurr->pNext;
 	}
-	//Удалить первое звено
+	//delete first link
 	void DelFirst() {
+		if (pFirst == pStop)
+			return;
+		if (pCurr == pFirst)
+			pCurr = pFirst->pNext;
 		T res = pFirst->val;
 		TNode<T> *tmp;
 		tmp = pFirst;
@@ -73,7 +77,7 @@ public:
 		delete tmp;
 		len--;
 	}
-	//Добавить элемент на текущую позицию
+	//insert to current poisition
 	void InsCurr(const T& a) {
 		if (pCurr == pFirst) {
 			InsFirst(a);
@@ -88,14 +92,14 @@ public:
 				pPrev->pNext = tmp;
 				tmp->pNext = pCurr;
 				pCurr = tmp;
-				len++; // потому что добавили 1 звено
+				len++; 
 			//}
 		}
 	}
-	//Удалить текущий элемент
+	//delete current link
 	void DelCurr() {
-		//if (pCurr == pStop)
-			//throw - 1;
+		if (pCurr == pStop)
+			return;
 		if (pCurr == pFirst)
 			DelFirst();
 		else {
@@ -105,20 +109,20 @@ public:
 			/*pCurr = GetNext();
 			pPrev->SetNext(pCurr);*/
 			delete tmp;
-			len--;//уменьшаем длину, т.к. один элемент удалили
+			len--;
 		}
 	}
-	//Возвращает текущий элемент
+	//get current link
 	T GetCurrEl() {
 		return pCurr->val;
 	}
-	//Установить pCurr на начало
+	//set pCurr to the beginning
 	void Reset() {
 		pCurr = pFirst;
 		pPrev = pStop;
 		pos = 0;
 	}
-	//Перейти на следующий элемент
+	//go to the next link
 	void GoNext() {
 		//if (IsEnd()) throw - 1;
 		//else {
@@ -127,15 +131,15 @@ public:
 			pos++;
 		//}
 	}
-	//Проверка, мы дошли до конца или не дошли
+	//end check
 	bool IsEnd() {
 		return (pCurr == pStop);
 	}
-    //Проверка, что мы дошли до предпоследнего
+    //penultimate check
 	bool IsNextEnd() {
 		return (pCurr->pNext == pStop);
 	}
-	//Добавить по порядку
+	//add in order
 	void InsOnOrder(const T& el) {
 		if ((pFirst == pStop) || (el > pFirst->val))
 			InsFirst(el);
@@ -150,7 +154,7 @@ public:
 					}
 				}
 	}
-	//Удаление всего списка
+	//delete the whole list
 	void DelList() {
 		for (Reset(); !IsEnd(); GoNext()) {
 			DelCurr();

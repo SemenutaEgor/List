@@ -17,6 +17,7 @@ void main() {
 		l.InsFirst(5);
 		l.Reset();
 		cout << l.GetCurrEl() << endl;*/
+	/************************************************************/
 		int sizem; // Размер массива коэффициентов
 		int column = 2;
 		int** arr;
@@ -51,6 +52,91 @@ void main() {
 		}
 		TPolinom pol1(arr1, sizem1);
 		cout << pol1;
-		pol += pol1;
-		cout << pol;
+		/************************************************************************************/
+		/*int arrm[1][2];
+		cout << "Введите коэффициент монома" << endl;
+		cin >> arrm[0][0];
+		cout << "Введите степени" << endl;
+		cin >> arrm[0][1];
+		TMonom monom(arrm);
+		pol.InsMonom(monom);
+		cout << pol << endl;*/
+		//pol += pol1;
+		//cout << pol;
+		/*******************************************************************/
+	int f = 0, c = 0, a = 0;
+	int arrm[1][2];
+	while (true) {
+		cout << "Домножить на целую константу - 1" << endl;
+		cout << "Домножить на моном - 2" << endl;
+		cout << "Добавить в полином моном - 3" << endl;
+		cout << "Сложить два полинома - 4" << endl;
+		cout << "Вывести полиномы - 5" << endl;
+		cout << "Введите f" << endl;
+		cin >> f;
+		switch (f) {
+		case 1:
+			cout << "Выберите полином 1 или 2" << endl;
+			cin >> c;
+			cout << "Введите целую константу" << endl;
+			cin >> a;
+			if (c == 1) {
+				pol *= a;
+				cout << pol;
+			}
+			else
+			{
+				pol1 *= a;
+				cout << pol1;
+			}
+			break;
+		case 2: {
+			cout << "Выберите полином 1 или 2" << endl;
+			cin >> c;
+			cout << "Введите коэффициент монома" << endl;
+			cin >> arrm[0][0];
+			cout << "Введите степени" << endl;
+			cin >> arrm[0][1];
+			TMonom monom(arrm);
+			if (c == 1) {
+				pol *= monom;
+				cout << pol << endl;
+			}
+			else {
+				pol1 *= monom;
+				cout << pol1 << endl;
+			}
+			break;
+		}
+		case 3: {
+			cout << "Выберите полином 1 или 2" << endl;
+			cin >> c;
+			cout << "Введите коэффициент монома" << endl;
+			cin >> arrm[0][0];
+			cout << "Введите степени" << endl;
+			cin >> arrm[0][1];
+			TMonom monom1(arrm);
+			if (c == 1) {
+				pol.InsMonom(monom1);
+				cout << pol << endl;
+			}
+			else {
+				pol1.InsMonom(monom1);
+				cout << pol1 << endl;
+			}
+			break;
+		}
+		case 4:
+			cout << pol + pol1 << endl;
+			break;
+		case 5:
+			cout << "1)" << pol << endl;
+			cout << "2)" << pol1 << endl;
+			break;
+		case 0:
+			return;
+		default:
+			continue;
+		}
+	}
 }

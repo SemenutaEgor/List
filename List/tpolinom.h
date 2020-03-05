@@ -6,12 +6,19 @@
 struct TMonom {
 	double coeff;
 	int px, py, pz;
-	//конструктор
+	//constructor
 	TMonom() {
 		coeff = 0;
 		px = py = pz = 0;
 	}
-	//операторы сравнения
+	//constructor for monom
+	TMonom(int arr[1][2]) {
+		coeff = arr[0][0];
+		px = arr[0][1] / 100;
+		py = arr[0][1] / 10 % 10;
+		pz = arr[0][1] % 10;
+	}
+	//assignments operators
 	bool operator< (TMonom& mon) {
 		if (px < mon.px)
 			return true;
@@ -51,12 +58,12 @@ struct TMonom {
 };
 class TPolinom : public THeadList<TMonom> {
 public:
-	//Конструктор
+	//constructor
 	TPolinom() : THeadList<TMonom>() {
 		pHead->val.pz = -1;
 	}
-	//Конструктор для отладки (преобразует двумерный массив в полином)
-	TPolinom(int** arr, int sizep) : THeadList<TMonom>() {          //sizep - размер массива с полиномом
+	//constructor for debugging (converts a two-dimensional array into polinomial  )
+	TPolinom(int** arr, int sizep) : THeadList<TMonom>() {          //sizep - number of monomials
 		pHead->val.pz = -1;
 		for (int i = 0; i < sizep; i++) {
 			TMonom mon;
@@ -67,7 +74,7 @@ public:
 			InsMonom(mon);
 		}
 	}
-	//Конструктор копирования
+	//copy constructor
 	TPolinom(TPolinom &p) : THeadList<TMonom>() {
 		pHead->val.pz = -1;
 		for (p.Reset(); !p.IsEnd(); p.GoNext()) {
@@ -75,18 +82,18 @@ public:
 			InsMonom(mon);
 		}
 	}
-	//Оператор присваивания
+	//assignment operator
 	void operator= (TPolinom &p) {
 		///
 	}
-	//Получить моном
+	//get monomial
 	TMonom& GetMonom() {
 		return pCurr->val;
 	}
-	//Добавить моном
+	//add monom
 	void InsMonom(TMonom mon) {
 		for (Reset(); !IsEnd(); GoNext()) {
-			if (mon == pCurr->val){
+			if (mon == GetMonom()){
 				double tmp = mon.coeff + GetMonom().coeff;
 				if (tmp)
 					//GetMonom().coeff = tmp;
@@ -103,7 +110,13 @@ public:
 		}
 		InsLast(mon);
 	}
-	//Домножить на моном
+	// multiply by constant
+	void operator *= (double a) {
+		for (Reset(); !IsEnd(); GoNext()) {
+			pCurr->val.coeff *= a; 
+		}
+	}
+	// monomial multiplication *=
 	void operator*= (TMonom mon) {
 		for (Reset(); !IsEnd(); GoNext()) {
 			pCurr->val.coeff *= mon.coeff;
@@ -113,13 +126,13 @@ public:
 		}
 		return;
 	}
-	//Умножить мономы
+	//monomial multiplication *
 	TPolinom operator* (TMonom mon) {
 		TPolinom res = *this;
 		res *= mon;
 		return res;
 	}
-	//Сложение полиномов +=
+	//Polinomial addition +=
 	void operator+=(TPolinom& q) {
 		TMonom pm, qm, rm;
 		Reset();
@@ -152,13 +165,13 @@ public:
 			}
 		}
 	}
-	//Polinomial addition (+)
+	//Polinomial addition +
 	TPolinom operator+ (TPolinom& pol) {
 		TPolinom res = *this;
 		res += pol;
 		return res;
 	}
-	//Вывод полинома
+	//Output
 	friend std::ostream& operator<<( std::ostream &os, TPolinom &p) {
 		for (p.Reset(); !p.IsNextEnd(); p.GoNext()) {
 			std::cout << p.pCurr->val.coeff << "*x^" << p.pCurr->val.px << "y^" << p.pCurr->val.py << "z^" << p.pCurr->val.pz << " + ";//<<  std::endl;

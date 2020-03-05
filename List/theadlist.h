@@ -5,32 +5,32 @@ class THeadList : public TList<T> {
 protected:
 	TNode<T> *pHead;
 public:
-	//Конструктор
+	//constructor
 	THeadList() : TList<T>() {
 		pHead = new TNode<T>;
 		pStop = pHead;
 		pHead->pNext = pHead;
 		pFirst = pHead;
 	}
-	//Деструктор
+	//destructor
 	~THeadList() {
 		TList<T> ::DelList();
 		delete pHead;
 	}
-	//Добавить первое звено
+	//add first link
 	void InsFirst(T el) {
 		TList::InsFirst(el);
 		pHead->pNext = pFirst;
 	}
-	//Добавить последнее звено
+	// add last link
 	void InsLast(T el) {
 		TList::InsLast(el);
 	}
-	//Добавить звено на текущую позицию
+	//add current link
 	void InsCurr(T el) {
 		TList::InsCurr(el);
 	}
-	//Удаление первого элемента
+	// delete first link
 	void DelFirst() {
 		TList::DelFirst();
 		pHead->pNext = pFirst;
