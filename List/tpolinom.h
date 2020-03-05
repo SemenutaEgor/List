@@ -152,7 +152,7 @@ public:
 			}
 		}
 	}
-	//Сложение полиномов +
+	//Polinomial addition (+)
 	TPolinom operator+ (TPolinom& pol) {
 		TPolinom res = *this;
 		res += pol;
