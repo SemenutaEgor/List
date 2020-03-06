@@ -84,7 +84,11 @@ public:
 	}
 	//assignment operator
 	void operator= (TPolinom &p) {
-		///
+		DelList();
+		Reset();
+		for (p.Reset(); !p.IsEnd(); p.GoNext()) {
+			InsMonom(p.pCurr->val);
+		}
 	}
 	//get monomial
 	TMonom& GetMonom() {
