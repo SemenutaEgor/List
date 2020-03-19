@@ -1,12 +1,12 @@
-#pragma once
+//tlist.h
+#ifndef _tlist_h
+#define _tlist_h
 template <class T>
 struct TNode {
 	T val;
 	TNode<T> *pNext;
-	/*void SetNext(TNode<T>* el) {
-		pNext = el;
-	}*/
 };
+
 template <class T>
 class TList {
 protected:
@@ -14,6 +14,7 @@ protected:
 	int len; //lenght
 	int pos;//where pCurr shows
 public:
+
 	//constructor
 	TList() {
 		pFirst = NULL;
@@ -24,17 +25,17 @@ public:
 		len = 0;
 		pos = 0;
 	}
+
 	//destructor
 	~TList() {
 		TNode<T> *tmp = pFirst;
-		//if (tmp == pStop)
-			//delete tmp;
 		while (pFirst != pStop) {
 			pFirst = pFirst->pNext;
 			delete tmp;
 			tmp = pFirst;
 		}
 	}
+
 	//insert at the beginning
 	void InsFirst(const T& a) {
 		TNode<T> *tmp;
@@ -44,6 +45,7 @@ public:
 		pFirst = tmp;
 		len++;
 	}
+
 	//insert at end
 	void InsLast(const T& a) {
 		if (pFirst == pStop)
@@ -60,10 +62,12 @@ public:
 			pLast = tmp;
 		}
 	}
+
 	//get a pointer pNext
 	TNode<T>* GetNext() {
 		return pCurr->pNext;
 	}
+
 	//delete first link
 	void DelFirst() {
 		if (pFirst == pStop)
@@ -77,6 +81,7 @@ public:
 		delete tmp;
 		len--;
 	}
+
 	//insert to current poisition
 	void InsCurr(const T& a) {
 		if (pCurr == pFirst) {
@@ -84,18 +89,15 @@ public:
 			pCurr = pFirst;
 		}
 		else {
-			//if (pCurr == pStop)
-				//throw - 1;
-			//else {
-				TNode<T> *tmp = new TNode<T>;
-				tmp->val = a;
-				pPrev->pNext = tmp;
-				tmp->pNext = pCurr;
-				pCurr = tmp;
-				len++; 
-			//}
+			TNode<T> *tmp = new TNode<T>;
+			tmp->val = a;
+			pPrev->pNext = tmp;
+			tmp->pNext = pCurr;
+			pCurr = tmp;
+			len++;
 		}
 	}
+
 	//delete current link
 	void DelCurr() {
 		if (pCurr == pStop)
@@ -106,39 +108,40 @@ public:
 			TNode<T> *tmp = pCurr;
 			pPrev->pNext = pCurr->pNext;
 			pCurr = pCurr->pNext;
-			/*pCurr = GetNext();
-			pPrev->SetNext(pCurr);*/
 			delete tmp;
 			len--;
 		}
 	}
+
 	//get current link
 	T GetCurrEl() {
 		return pCurr->val;
 	}
+
 	//set pCurr to the beginning
 	void Reset() {
 		pCurr = pFirst;
 		pPrev = pStop;
 		pos = 0;
 	}
+
 	//go to the next link
 	void GoNext() {
-		//if (IsEnd()) throw - 1;
-		//else {
-			pPrev = pCurr;
-			pCurr = pCurr->pNext;
-			pos++;
-		//}
+		pPrev = pCurr;
+		pCurr = pCurr->pNext;
+		pos++;
 	}
+
 	//end check
 	bool IsEnd() {
 		return (pCurr == pStop);
 	}
-    //penultimate check
+
+	//penultimate check
 	bool IsNextEnd() {
 		return (pCurr->pNext == pStop);
 	}
+
 	//add in order
 	void InsOnOrder(const T& el) {
 		if ((pFirst == pStop) || (el > pFirst->val))
@@ -154,6 +157,7 @@ public:
 					}
 				}
 	}
+
 	//delete the whole list
 	void DelList() {
 		for (Reset(); !IsEnd(); GoNext()) {
@@ -162,3 +166,4 @@ public:
 		DelCurr();
 	}
 };
+#endif
