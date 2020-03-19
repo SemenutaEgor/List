@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GtaTestDurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Executable>D:\Входящие\УЧЕНИЕ\АИСД\4 семестр\List\x64\Debug\PolinomialsTest.exe</Executable>
+  <TestDurations>
+    <TestDuration Test="TPolinomTest.can_create_monom" Duration="1" />
+    <TestDuration Test="TPolinomTest.can_create_polinom" Duration="1" />
+    <TestDuration Test="TPolinomTest.can_assign_one_polimonial_to_another" Duration="1" />
+    <TestDuration Test="TPolinomTest.can_add_monom_to_polinom" Duration="1" />
+    <TestDuration Test="TPolinomTest.can_multiply_the_polinomial_by_a_constant" Duration="1" />
+    <TestDuration Test="TPolinomTest.can_multiply_the_polinomial_by_a_monomial" Duration="1" />
+    <TestDuration Test="TPolinomTest.can_add_two_polinomials" Duration="1" />
+    <TestDuration Test="TPolinomTest.can_output_polinomials" Duration="2" />
+  </TestDurations>
+</GtaTestDurations>
