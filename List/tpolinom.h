@@ -6,11 +6,13 @@
 struct TMonom {
 	double coeff;
 	int px, py, pz;
+
 	//constructor
 	TMonom() {
 		coeff = 0;
 		px = py = pz = 0;
 	}
+
 	//constructor for monom
 	TMonom(int arr[1][2]) {
 		coeff = arr[0][0];
@@ -18,6 +20,7 @@ struct TMonom {
 		py = arr[0][1] / 10 % 10;
 		pz = arr[0][1] % 10;
 	}
+
 	//assignments operators
 	bool operator< (TMonom& mon) {
 		if (px < mon.px)
@@ -56,12 +59,16 @@ struct TMonom {
 			return true;
 	}
 };
+
+//Class of polinomials
 class TPolinom : public THeadList<TMonom> {
 public:
+
 	//constructor
 	TPolinom() : THeadList<TMonom>() {
 		pHead->val.pz = -1;
 	}
+
 	//constructor for debugging (converts a two-dimensional array into polinomial  )
 	TPolinom(int** arr, int sizep) : THeadList<TMonom>() {          //sizep - number of monomials
 		pHead->val.pz = -1;
@@ -74,6 +81,7 @@ public:
 			InsMonom(mon);
 		}
 	}
+
 	//copy constructor
 	TPolinom(TPolinom &p) : THeadList<TMonom>() {
 		pHead->val.pz = -1;
@@ -82,6 +90,7 @@ public:
 			InsMonom(mon);
 		}
 	}
+
 	//assignment operator
 	void operator= (TPolinom &p) {
 		DelList();
@@ -90,17 +99,18 @@ public:
 			InsMonom(p.pCurr->val);
 		}
 	}
+
 	//get monomial
 	TMonom& GetMonom() {
 		return pCurr->val;
 	}
+
 	//add monom
 	void InsMonom(TMonom mon) {
 		for (Reset(); !IsEnd(); GoNext()) {
 			if (mon == GetMonom()){
 				double tmp = mon.coeff + GetMonom().coeff;
 				if (tmp)
-					//GetMonom().coeff = tmp;
 					pCurr->val.coeff = tmp;
 				else
 					DelCurr();
@@ -110,16 +120,17 @@ public:
 				InsCurr(mon);
 				return;
 			}
-			//InsLast(mon);
 		}
 		InsLast(mon);
 	}
+
 	// multiply by constant
 	void operator *= (double a) {
 		for (Reset(); !IsEnd(); GoNext()) {
 			pCurr->val.coeff *= a; 
 		}
 	}
+
 	// monomial multiplication *=
 	void operator*= (TMonom mon) {
 		for (Reset(); !IsEnd(); GoNext()) {
@@ -130,12 +141,14 @@ public:
 		}
 		return;
 	}
+
 	//monomial multiplication *
 	TPolinom operator* (TMonom mon) {
 		TPolinom res = *this;
 		res *= mon;
 		return res;
 	}
+
 	//Polinomial addition +=
 	void operator+=(TPolinom& q) {
 		TMonom pm, qm, rm;
@@ -169,18 +182,19 @@ public:
 			}
 		}
 	}
+
 	//Polinomial addition +
 	TPolinom operator+ (TPolinom& pol) {
 		TPolinom res = *this;
 		res += pol;
 		return res;
 	}
+
 	//Output
 	friend std::ostream& operator<<( std::ostream &os, TPolinom &p) {
 		for (p.Reset(); !p.IsNextEnd(); p.GoNext()) {
 			std::cout << p.pCurr->val.coeff << "*x^" << p.pCurr->val.px << "y^" << p.pCurr->val.py << "z^" << p.pCurr->val.pz << " + ";//<<  std::endl;
 		}
-		//p.GoNext();
 		std::cout << p.pCurr->val.coeff << "*x^" << p.pCurr->val.px << "y^" << p.pCurr->val.py << "z^" << p.pCurr->val.pz << std::endl;
 		return os;
 	}
